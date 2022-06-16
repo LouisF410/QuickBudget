@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest 
+
+  quickbudget.api:
+    image: ${DOCKER_REGISTRY-}quickbudgetapi
+    build:
+      context: .
+      dockerfile: src/QuickBudget.API/Dockerfile
+    depends_on:
+      - sqldata
+      - quickbudget.identity
+
+  quickbudget.identity:
+    image: ${DOCKER_REGISTRY-}quickbudgetidentity
+    build:
+      context: .
+      dockerfile: src/QuickBudget.Identity/Dockerfile
+    depends_on:
+      - sqldata
+
