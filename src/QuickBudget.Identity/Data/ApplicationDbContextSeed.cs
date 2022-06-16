@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using QuickBudget.Domain.Entities;
 using QuickBudget.Persistance;
 
@@ -24,16 +23,16 @@ namespace QuickBudget.Identity.Data
                     var user = new ApplicationUser
                     {
                         Id = Guid.NewGuid().ToString(),
-                        UserName = "louisfrancios@outlook.com",
-                        Email = "louisfrancios@outlook.com",
-                        Name = "Louis",
-                        LastName = "van Wyk",
+                        UserName = "validemail@email.com",
+                        Email = "validemail@email.com",
+                        Name = "Name",
+                        LastName = "LastName",
                         SecurityStamp = Guid.NewGuid().ToString("D"),
-                        NormalizedEmail = "LOUISFRANCIOS@OUTLOOK.COM",
-                        NormalizedUserName = "LOUISFRANCIOS@OUTLOOK.COM",
+                        NormalizedEmail = "VALIDEMAIL@EMAIL.COM",
+                        NormalizedUserName = "VALIDEMAIL@EMAIL.COM",
                     };
 
-                    user.PasswordHash = _passwordHasher.HashPassword(user, "P@ssw0rd1");
+                    user.PasswordHash = _passwordHasher.HashPassword(user, "PassSword123");
                     context.Users.Add(user);
 
                     await context.SaveChangesAsync();
