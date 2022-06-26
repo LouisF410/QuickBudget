@@ -26,14 +26,12 @@ public static class Startup
             .AddCustomSwagger(Configuration)
             .AddCustomIntegrations(Configuration)
             .AddCustomConfiguration(Configuration)
-            //.AddEventBus(Configuration)
             .AddCustomAuthentication(Configuration);
 
         var container = new ContainerBuilder();
         container.Populate(services);
 
         container.RegisterModule(new MediatorModule());
-        //container.RegisterModule(new ApplicationModule(Configuration["ConnectionString"]));
 
         return new AutofacServiceProvider(container.Build());
     }
@@ -61,32 +59,8 @@ public static class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            //endpoints.MapGrpcService<OrderingService>();
             endpoints.MapDefaultControllerRoute();
             endpoints.MapControllers();
-            //endpoints.MapGet("/_proto/", async ctx =>
-            //{
-            //    ctx.Response.ContentType = "text/plain";
-            //    using var fs = new FileStream(Path.Combine(env.ContentRootPath, "Proto", "basket.proto"), FileMode.Open, FileAccess.Read);
-            //    using var sr = new StreamReader(fs);
-            //    while (!sr.EndOfStream)
-            //    {
-            //        var line = await sr.ReadLineAsync();
-            //        if (line != "/* >>" || line != "<< */")
-            //        {
-            //            await ctx.Response.WriteAsync(line);
-            //        }
-            //    }
-            //});
-            //endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
-            //{
-            //    Predicate = _ => true,
-            //    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            //});
-            //endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
-            //{
-            //    Predicate = r => r.Name.Contains("self")
-            //});
         });
     }
 
@@ -112,8 +86,6 @@ static class CustomExtensionsMethods
     public static IServiceCollection AddApplicationInsights(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddApplicationInsightsTelemetry(configuration);
-        //services.AddApplicationInsightsKubernetesEnricher();
-
         return services;
     }
 
@@ -191,56 +163,6 @@ static class CustomExtensionsMethods
     public static IServiceCollection AddCustomIntegrations(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        //services.AddTransient<IIdentityService, IdentityService>();
-        //services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
-        //    sp => (DbConnection c) => new IntegrationEventLogService(c));
-
-        //services.AddTransient<IOrderingIntegrationEventService, OrderingIntegrationEventService>();
-
-        //if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
-        //{
-        //    services.AddSingleton<IServiceBusPersisterConnection>(sp =>
-        //    {
-        //        var serviceBusConnectionString = configuration["EventBusConnection"];
-
-        //        var subscriptionClientName = configuration["SubscriptionClientName"];
-
-        //        return new DefaultServiceBusPersisterConnection(serviceBusConnectionString);
-        //    });
-        //}
-        //else
-        //{
-        //    services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
-        //    {
-        //        var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
-
-
-        //        var factory = new ConnectionFactory()
-        //        {
-        //            HostName = configuration["EventBusConnection"],
-        //            DispatchConsumersAsync = true
-        //        };
-
-        //        if (!string.IsNullOrEmpty(configuration["EventBusUserName"]))
-        //        {
-        //            factory.UserName = configuration["EventBusUserName"];
-        //        }
-
-        //        if (!string.IsNullOrEmpty(configuration["EventBusPassword"]))
-        //        {
-        //            factory.Password = configuration["EventBusPassword"];
-        //        }
-
-        //        var retryCount = 5;
-        //        if (!string.IsNullOrEmpty(configuration["EventBusRetryCount"]))
-        //        {
-        //            retryCount = int.Parse(configuration["EventBusRetryCount"]);
-        //        }
-
-        //        return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
-        //    });
-        //}
-
         return services;
     }
 
@@ -268,48 +190,6 @@ static class CustomExtensionsMethods
 
         return services;
     }
-
-    public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
-    {
-        //if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
-        //{
-        //    services.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
-        //    {
-        //        var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
-        //        var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-        //        var logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
-        //        var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-        //        string subscriptionName = configuration["SubscriptionClientName"];
-
-        //        return new EventBusServiceBus(serviceBusPersisterConnection, logger,
-        //            eventBusSubcriptionsManager, iLifetimeScope, subscriptionName);
-        //    });
-        //}
-        //else
-        //{
-        //    services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
-        //    {
-        //        var subscriptionClientName = configuration["SubscriptionClientName"];
-        //        var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-        //        var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-        //        var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-        //        var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-
-        //        var retryCount = 5;
-        //        if (!string.IsNullOrEmpty(configuration["EventBusRetryCount"]))
-        //        {
-        //            retryCount = int.Parse(configuration["EventBusRetryCount"]);
-        //        }
-
-        //        return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, subscriptionClientName, retryCount);
-        //    });
-        //}
-
-        //services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-
-        return services;
-    }
-
     public static IServiceCollection AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         // prevent from mapping "sub" claim to nameidentifier.
