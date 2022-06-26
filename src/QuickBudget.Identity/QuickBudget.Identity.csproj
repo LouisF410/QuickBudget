@@ -39,4 +39,10 @@
     <ProjectReference Include="..\QuickBudget.Persistance\QuickBudget.Persistance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+
 </Project>

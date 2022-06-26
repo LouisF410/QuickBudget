@@ -14,7 +14,7 @@ namespace QuickBudget.API;
 
 public static class Startup
 {
-    public static IConfiguration Configuration => GetConfiguration();
+    private static IConfiguration Configuration => GetConfiguration();
 
     public static IServiceProvider ConfigureServices(this IServiceCollection services)
     {
@@ -44,16 +44,15 @@ public static class Startup
         if (!string.IsNullOrEmpty(pathBase))
         {
             logger.LogDebug("Using PATH BASE '{pathBase}'", pathBase);
-            //loggerFactory.CreateLogger(typeof(Startup)).LogDebug("Using PATH BASE '{pathBase}'", pathBase);
             app.UsePathBase(pathBase);
         }
 
         app.UseSwagger()
             .UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint($"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json", "Ordering.API V1");
-                c.OAuthClientId("orderingswaggerui");
-                c.OAuthAppName("Ordering Swagger UI");
+                c.SwaggerEndpoint($"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json", "QuickBudget.API V1");
+                c.OAuthClientId("apiswaggerui");
+                c.OAuthAppName("QuickBudget Swagger UI");
             });
 
         app.UseRouting();
@@ -103,8 +102,6 @@ public static class Startup
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddEnvironmentVariables();
-
-        var config = builder.Build();
 
         return builder.Build();
     }

@@ -1,0 +1,139 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="register-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card card-signup">
+                @*<div class="card-header" data-background-color="theme">
+                        <h4 class="title">Create your account</h4>
+                        <p class="category">Complete your account details</p>
+                    </div>*@
+                <h2 class="card-title text-center">Register</h2>
+                <div class="col-md-6">
+                    <div class="info info-horizontal">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">timeline</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Easy Budgeting</h4>
+                            <p class="description">
+                                See how much you’re spending on what, year-to-year or month-to-month.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info info-horizontal">
+                        <div class="icon icon-primary">
+                            <i class="material-icons">assignment_turned_in</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Simple categorization</h4>
+                            <p class="description">
+                                We have hundreds of default categories, and it's easy to rename or re-categorize any transaction as you please.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info info-horizontal">
+                        <div class="icon icon-info">
+                            <i class="material-icons">group</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Built Audience</h4>
+                            <p class="description">
+                                There is also a Fully Customizable CMS Admin Dashboard for this product.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="social text-center">
+                        <a class="btn btn-just-icon btn-round btn-microsoft"
+                           asp-controller="External"
+                           asp-action="Challenge"
+                           asp-route-provider="Microsoft">
+                            <i class="fab fa-microsoft"></i>
+                        </a>
+                        <a class="btn btn-just-icon btn-round btn-facebook"
+                           asp-controller="External"
+                           asp-action="Challenge"
+                           asp-route-provider="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a class="btn btn-just-icon btn-round btn-google"
+                           asp-controller="External"
+                           asp-action="Challenge"
+                           asp-route-provider="Google">
+                            <i class="fab fa-google-plus-g"></i>
+                            <div class="ripple-container"></div>
+                        </a>
+                        <h4 class="mt-3"> or </h4>
+                    </div>
+                    <div class="card-content ">
+                        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">email</i>
+                                        </span>
+                                        <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label" asp-for="Email">Email address</label>
+                                            <input type="email" class="form-control" asp-for="Email">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">lock_outline</i>
+                                        </span>
+                                        <div class="form-group form-black label-floating is-empty" style="padding-right: 9px;">
+                                            <label class="control-label" asp-for="Password">Password</label>
+                                            <input type="password" class="form-control" asp-for="Password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form-black label-floating is-empty" [ngClass]="{'has-error': registerForm.controls.confirmPassword.errors?.MatchPassword}"
+                                         style="padding-right: 25px; margin-left: 63px;">
+                                        <label class="control-label" asp-for="ConfirmPassword">Confirm Password</label>
+                                        <input type="password" class="form-control" asp-for="ConfirmPassword">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <button type="submit" class="btn btn-theme btn-primary btn-round mt-4">Register</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input').keyup(function () {
+                tmpval = $(this).val();
+                var elem = $(this).closest('.form-group');
+                if (tmpval === '') {
+                    elem.addClass('is-empty');
+                } else {
+                    elem.removeClass('is-empty');
+                }
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+}

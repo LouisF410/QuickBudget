@@ -21,3 +21,11 @@ services:
     depends_on:
       - sqldata
 
+  quickbudget.web:
+    image: ${DOCKER_REGISTRY-}quickbudgetweb
+    build:
+      context: .
+      dockerfile: src/QuickBudget.Web/Dockerfile
+    depends_on:
+      - quickbudget.api
+      - quickbudget.identity

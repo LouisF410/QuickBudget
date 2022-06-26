@@ -1,0 +1,17 @@
+.sidenav {
+  width: 280px;
+  height: 100%;
+  display: flex;
+
+  .logo-container {
+    margin: 0 auto;
+    height: 55px;
+  }
+
+  .nav-item {
+    svg {
+      height: 16px;
+      width: 16px;
+    }
+  }
+}

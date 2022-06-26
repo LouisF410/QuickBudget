@@ -1,0 +1,114 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Authentication
+@model LoginViewModel
+
+@{
+	ViewData["Title"] = "Log in";
+}
+<div class="login-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="card card-login">
+				<div class="card-header card-header-primary text-center" data-background-color="theme">
+					<h4 class="card-title">Login</h4>
+					<div class="social-line">
+						<a class="btn btn-just-icon btn-link"
+						   asp-controller="External"
+						   asp-action="Challenge"
+						   asp-route-provider="Microsoft"
+						   asp-route-returnUrl="@Model.ReturnUrl">
+							<i class="fab fa-microsoft"></i>
+						</a>
+						<a class="btn btn-just-icon btn-link"
+						   asp-controller="External"
+						   asp-action="Challenge"
+						   asp-route-provider="Facebook"
+						   asp-route-returnUrl="@Model.ReturnUrl">
+							<i class="fab fa-facebook"></i>
+						</a>
+						<a class="btn btn-just-icon btn-link"
+						   asp-controller="External"
+						   asp-action="Challenge"
+						   asp-route-provider="Google"
+						   asp-route-returnUrl="@Model.ReturnUrl">
+							<i class="fab fa-google-plus-g"></i>
+							<div class="ripple-container"></div>
+						</a>
+					</div>
+				</div>
+				<hr class="hr-text" data-content="or">
+				<div class="card-content">
+					@Html.AntiForgeryToken()
+					<form asp-route-returnurl="@ViewData["ReturnUrl"]" class="needs-validation" method="post" novalidate>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group has-validation mb-3">
+									<span class="input-group-text" id="inputGroup-sizing-sm"><i class="material-icons">email</i></span>
+									<input asp-for="Email" type="email" placeholder="Email" class="form-control" aria-label="Email input" aria-describedby="Email" required>
+									<div class="invalid-feedback">
+										Email required.
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group has-validation mb-3">
+									<span class="input-group-text" id="inputGroup-sizing-sm"><i class="material-icons">lock_outline</i></span>
+									<input asp-for="Password" type="password" placeholder="Password" class="form-control"
+										   aria-label="Password input" aria-describedby="Password" autocomplete="off" required>
+									<div class="invalid-feedback">
+										Password required.
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="mb-3">
+								<div class="link">
+									Don't have a login?
+									<a class="text-theme" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register here</a>
+								</div>
+								<div class="link">
+									<a asp-action="ForgotPassword" class="text-theme">Forgotten password</a>
+								</div>
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="mb-6">
+								<input type="submit" class="btn btn-primary" value="Login" />
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+	<script type="text/javascript">
+		var forms = document.querySelectorAll('.needs-validation')
+
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms)
+			.forEach(function(form) {
+				form.addEventListener('submit', function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
+
+					form.classList.add('was-validated')
+				}, false)
+			})
+	</script>
+}
+
+	@section Styles {
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+}

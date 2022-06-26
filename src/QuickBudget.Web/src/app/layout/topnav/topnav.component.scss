@@ -1,0 +1,13 @@
+.topnav {
+  height: 70px;
+  width: 100%;
+  display: flex;
+
+  .title {
+    position: relative;
+    margin: auto 0;
+    margin-top: 25px;
+
+    color: #555;
+  }
+}

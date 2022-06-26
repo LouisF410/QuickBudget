@@ -1,0 +1,16 @@
+@import "assets/sass/_fonts.scss";
+
+body {
+  font-family: "Cerebri Sans";
+}
+
+main {
+  display: flex;
+  flex-wrap: nowrap;
+  height: -webkit-fill-available;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@import "assets/sass/_table.scss";

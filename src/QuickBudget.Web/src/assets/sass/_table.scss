@@ -1,0 +1,35 @@
+table {
+  color: transparent !important;
+
+  thead {
+    th {
+      color: #fd7e14;
+      background-color: #fd7e1421 !important;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  }
+
+  tbody {
+    td {
+      font-size: 13px;
+    }
+  }
+
+  th,
+  td {
+    padding: 1rem !important;
+  }
+
+  td {
+    border-bottom: 1px solid #fd7e1421;
+    color: #212529;
+  }
+
+  th {
+    border-top: 1px solid #fd7e1421;
+    border-bottom: 1px solid #fd7e1421;
+  }
+}

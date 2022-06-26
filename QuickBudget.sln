@@ -27,7 +27,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{385A28C5-8457-4EE3-A01A-7CD519545C20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBudget.Common", "src\QuickBudget.Common\QuickBudget.Common.csproj", "{A55D06CA-0246-40EC-A232-755BD23F2B79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickBudget.Common", "src\QuickBudget.Common\QuickBudget.Common.csproj", "{A55D06CA-0246-40EC-A232-755BD23F2B79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,6 +19,12 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  quickbudget.web:
+    environment:
+      - PORT=80
+      - ENVIRONMENT="development"
+    ports:
+      - "5150:80"
 
   sqldata:
     environment:
